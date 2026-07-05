@@ -1,69 +1,64 @@
-[Amazon Product Scraper](https://apify.com/apivault_labs/amazon-product-scraper?fpr=data)
+[Amazon Product Scraper](https://apify.com/lanky_quantifier/amazon-product-scraper?fpr=data)
 
-# Amazon Product Scraper
+# Amazon Product Scraper Pro 🚀
 
-Scrape Amazon product data in real-time. Get prices, ratings, reviews, availability, and more.
+Fast, reliable Amazon product data extraction at scale. Built with Cheerio for lightweight, browser-free performance.
 
-## Features
+---
 
-- **Real-time data** — Fresh product information, not cached
-- **Multiple regions** — Works with amazon.com, amazon.co.uk, amazon.de, etc.
-- **Flexible input** — Accept full URLs or just ASINs
-- **Customizable fields** — Choose which data to extract
-- **Parallel processing** — Scrape multiple products simultaneously
+## ✨ Key Features
 
-## Input
+| Feature | Description |
+| --- | --- |
+| **Rich Data Extraction** | Titles, prices, images, ratings, availability, ASINs, seller info |
+| **Flexible Input** | Search keywords, ASINs, or direct product URLs supported |
+| **Anti-Bot Protection** | Built-in captcha and robot-check bypass systems |
+| **High Performance** | Cheerio-powered — no browser overhead, faster execution |
+| **Multiple Export Formats** | JSON, CSV, Excel — ready for analysis |
 
-| Field | Type | Description |
-| --- | --- | --- |
-| productUrls | array | List of Amazon product URLs or ASINs |
-| extractName | boolean | Extract product name (default: true) |
-| extractPrice | boolean | Extract current price (default: true) |
-| extractOriginalPrice | boolean | Extract original price before discount (default: true) |
-| extractRating | boolean | Extract product rating (default: true) |
-| extractReviews | boolean | Extract reviews count (default: true) |
-| extractDescription | boolean | Extract product description (default: true) |
-| extractBrand | boolean | Extract brand name (default: true) |
-| extractCategory | boolean | Extract category (default: true) |
-| extractASIN | boolean | Extract ASIN (default: true) |
-| extractAvailability | boolean | Extract stock status (default: true) |
-| extractSeller | boolean | Extract seller name (default: true) |
-| extractImage | boolean | Extract main image URL (default: true) |
-| maxConcurrency | integer | Parallel requests (default: 3) |
-| timeout | integer | Timeout per product in seconds (default: 120) |
+---
 
-## Output
+## 🚀 How to Use
+
+1. **Launch actorINs, or product URLs
+2. **Set parameters** — max products, proxy settings, data fields
+3. **Run & export** — download structured data in your preferred format
+
+---
+
+## 📊 Example Output
 
 ```
 {
-  "success": true,
-  "inputUrl": "https://www.amazon.com/dp/B0BSHF7WHW",
-  "productName": "Apple 2023 MacBook Pro Laptop M2 Pro",
-  "price": "$1,854.30",
-  "originalPrice": "$1,999.00",
-  "rating": 4.7,
-  "reviewsCount": 482,
-  "brand": "Apple",
-  "asin": "B0BSHF7WHW",
+  "asin": "B08N5WRWND",
+  "title": "MacBook Air: M1 Chip, 13.3-inch Retina Display",
+  "price": "$799.00",
+  "currency": "USD",
+  "rating": "4.8",
   "availability": "In Stock",
-  "seller": "Amazon.com",
-  "category": "Electronics",
-  "imageUrl": "https://m.media-amazon.com/images/...",
-  "productUrl": "https://www.amazon.com/dp/B0BSHF7WHW"
+  "url": "https://www.amazon.com/dp/B08N5WRWND",
+  "scrapedAt": "2024-11-01T10:23:00Z"
 }
+, 195+ locations, pay-per-GB pricing
+
+---
+
+## 📦 Bundle Deal: E-commerce Price Intelligence Starter Pack
+
+This actor is part of the **[E-commerce Price Intelligence Starter Pack](https://vhubster3.gumroad.com/l/qyrsdk)** — a **$19 bundle** that includes:
+
+- Target simultaneously
+- 🔔 **Price Drop Alert System** — webhook alerts when prices drop below your threshold
+
+All three actors run on Apify with zero setup required.
+
+](https://vhubster3.gumroad.com/l/apify-bundle) | **$29** | 10+ production-ready actors |
+| [n8n Automation Pack](https://vhubster3.gumroad.com/l/n8n-pack) | **$39** | Pre-built scrapingmailto:vhubsystems@gmail.com)**  
+**Typical Delivery:** 1 corrected the corrupted JSON output format
+- Both improved the professional tone and clarity
+
+**Key Differences Resolved:**
+- Adopted DeepSeek's cleaner section structure while preserving Sonnet's complete technical details
+- Maintained both currency field while using more professional language
+- Combined the best improvements from both models while preserving complete technical accuracy and all commercial elements.
 ```
-
-## Supported URL Formats
-
-- Full URL: `https://www.amazon.com/dp/B0BSHF7WHW`
-- Short URL: `https://amzn.to/xxxxx`
-- ASIN only: `B0BSHF7WHW`
-- Product page: `https://www.amazon.com/Apple-MacBook-Pro/dp/B0BSHF7WHW`
-
-## Use Cases
-
-- Price monitoring and tracking
-- Competitor analysis
-- Product research
-- Inventory monitoring
-- Market analysis
