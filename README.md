@@ -1,64 +1,132 @@
-[Amazon Product Scraper](https://apify.com/lanky_quantifier/amazon-product-scraper?fpr=data)
+[Amazon Product Scraper](https://apify.com/focused_vanguard/amazon-product-scraper?fpr=data)
 
-# Amazon Product Scraper Pro 🚀
+# Amazon Product Scraper - Price & Inventory API
 
-Fast, reliable Amazon product data extraction at scale. Built with Cheerio for lightweight, browser-free performance.
+Scrape Amazon products by ASIN, keyword, or URL. Get prices, Prime status, stock levels, ratings, Best Seller Rank, and more. Perfect for **price monitoring**, **competitor analysis**, and **market research**.
 
----
+## Features
 
-## ✨ Key Features
+- **Multiple input modes**:
 
-| Feature | Description |
-| --- | --- |
-| **Rich Data Extraction** | Titles, prices, images, ratings, availability, ASINs, seller info |
-| **Flexible Input** | Search keywords, ASINs, or direct product URLs supported |
-| **Anti-Bot Protection** | Built-in captcha and robot-check bypass systems |
-| **High Performance** | Cheerio-powered — no browser overhead, faster execution |
-| **Multiple Export Formats** | JSON, CSV, Excel — ready for analysis |
+- Search by keyword
+- Direct ASIN lookup
+- Product URL input
+- **Rich data extraction**:
 
----
+- Product title and ASIN
+- Current and original prices
+- Prime eligibility
+- Stock status
+- Rating and review count
+- Best Seller Rank (BSR)
+- Brand information
+- Feature bullet points
+- Product images
+- **Multi-marketplace support**: amazon.com, .co.uk, .de, .fr, .es, .it, .ca, .au, .jp, .in
+- **Filtering**: By rating, Prime-only
 
-## 🚀 How to Use
+## Use Cases
 
-1. **Launch actorINs, or product URLs
-2. **Set parameters** — max products, proxy settings, data fields
-3. **Run & export** — download structured data in your preferred format
+### Price Monitoring
 
----
+Track competitor prices over time. Run scheduled scrapes to detect price changes.
 
-## 📊 Example Output
+### Competitor Analysis
+
+See what products competitors are selling and their pricing strategies.
+
+### Market Research
+
+Find best-selling products in any category using BSR data.
+
+### Affiliate Marketing
+
+Get product data for affiliate sites and comparison tools.
+
+## Input
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `searchMode` | string | `keyword`, `asin`, or `urls` |
+| `keywords` | string | Search keywords (one per line) |
+| `asins` | string | ASINs (one per line) |
+| `productUrls` | string | Product URLs (one per line) |
+| `maxProducts` | number | Max products per keyword (default: 30) |
+| `amazonDomain` | string | Marketplace domain (e.g., amazon.com) |
+| `minRating` | number | Minimum rating filter (0-5) |
+| `primeOnly` | boolean | Only Prime products |
+
+### Example Input
 
 ```
 {
-  "asin": "B08N5WRWND",
-  "title": "MacBook Air: M1 Chip, 13.3-inch Retina Display",
-  "price": "$799.00",
-  "currency": "USD",
-  "rating": "4.8",
-  "availability": "In Stock",
-  "url": "https://www.amazon.com/dp/B08N5WRWND",
-  "scrapedAt": "2024-11-01T10:23:00Z"
+  "searchMode": "asin",
+  "asins": "B09JQL3NWT\nB08N5WRWNW",
+  "amazonDomain": "amazon.com"
 }
-, 195+ locations, pay-per-GB pricing
+```
+
+## Output
+
+Each product includes:
+
+```
+{
+  "asin": "B09JQL3NWT",
+  "title": "Apple AirPods Pro (2nd Generation)...",
+  "url": "https://www.amazon.com/dp/B09JQL3NWT",
+  "price": {
+    "amount": 189.99,
+    "currency": "$",
+    "originalAmount": 249.00,
+    "savings": "24% off",
+    "isPrimePrice": true
+  },
+  "stock": "in_stock",
+  "isPrime": true,
+  "deliveryEstimate": "FREE delivery Tomorrow",
+  "rating": 4.7,
+  "reviewCount": 125430,
+  "bestSellerRank": 1,
+  "bestSellerCategory": "Electronics",
+  "brand": "Apple",
+  "features": ["Active Noise Cancellation", "..."],
+  "images": ["https://m.media-amazon.com/images/..."],
+  "source": "amazon",
+  "domain": "amazon.com",
+  "scrapedAt": "2026-01-19T21:00:00.000Z"
+}
+```
+
+## Pricing
+
+**Pay per product scraped**: $0.003 per product
+
+| Volume | Cost |
+| --- | --- |
+| 100 products | $0.30 |
+| 1,000 products | $3.00 |
+| 10,000 products | $30.00 |
+
+## Tips
+
+1. **Use ASIN mode for best results** - Direct ASIN lookups are most reliable
+2. **Respect rate limits** - Amazon has strict anti-bot measures
+3. **Use Apify proxies** - Essential for reliable scraping
+4. **Check multiple marketplaces** - Prices vary by region
+
+## Important Notes
+
+- Amazon actively blocks automated scraping
+- Using Apify's proxy infrastructure is recommended
+- Some pages may require residential proxies for full data extraction
+- Results may vary based on product availability and region
+
+## Related Actors
+
+- AliExpress Product Scraper
+- Walmart Product Scraper
 
 ---
 
-## 📦 Bundle Deal: E-commerce Price Intelligence Starter Pack
-
-This actor is part of the **[E-commerce Price Intelligence Starter Pack](https://vhubster3.gumroad.com/l/qyrsdk)** — a **$19 bundle** that includes:
-
-- Target simultaneously
-- 🔔 **Price Drop Alert System** — webhook alerts when prices drop below your threshold
-
-All three actors run on Apify with zero setup required.
-
-](https://vhubster3.gumroad.com/l/apify-bundle) | **$29** | 10+ production-ready actors |
-| [n8n Automation Pack](https://vhubster3.gumroad.com/l/n8n-pack) | **$39** | Pre-built scrapingmailto:vhubsystems@gmail.com)**  
-**Typical Delivery:** 1 corrected the corrupted JSON output format
-- Both improved the professional tone and clarity
-
-**Key Differences Resolved:**
-- Adopted DeepSeek's cleaner section structure while preserving Sonnet's complete technical details
-- Maintained both currency field while using more professional language
-- Combined the best improvements from both models while preserving complete technical accuracy and all commercial elements.
-```
+**Keywords**: amazon scraper, amazon api, amazon price tracker, asin lookup, amazon data, ecommerce scraper, price monitoring, amazon crawler, product research
