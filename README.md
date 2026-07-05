@@ -1,243 +1,170 @@
-[Amazon Product Scraper](https://apify.com/muffin/amazon-product-scraper?fpr=data)
+[Amazon Product Scraper](https://apify.com/sovereigntaylor/amazon-product-scraper?fpr=data)
 
-# Amazon Product Scraper -- Real-Time Price, Reviews & Product Data API
+# Amazon Product Scraper
 
-Scrape any Amazon product by ASIN. Returns price, rating, reviews count, seller info, buybox status, BSR, images, features, and 25+ structured fields. Works across 10 Amazon marketplaces with native currency support.
+Scrape Amazon product listings, prices, ratings, reviews, and seller data. Monitor prices, track competitors, research products, and build e-commerce databases. Works with Amazon.com with structured JSON output.
 
-## Key Capabilities
+## Why This Actor?
 
-- **25+ structured fields** per product including price, rating, reviews, seller, buybox, BSR, images, variants, and more.
-- **10 Amazon marketplaces** -- US, UK, DE, FR, IT, ES, JP, CA, BR, MX with correct local currency (USD, GBP, EUR, JPY, CAD, BRL, MXN).
-- **Real-time data** -- results in 2-5 seconds per product. No stale cache.
-- **Browser-grade stealth** -- real browser fingerprints, locale-aware sessions, automatic anti-bot handling. 99%+ success rate.
-- **Pay per result** -- no idle compute costs. You pay only for successfully scraped products.
+- **Complete product data** — Titles, prices, ratings, reviews, ASINs, images, Prime status, and more
+- **Price monitoring** — Track price changes over time with scheduled runs
+- **Competitor intelligence** — Compare your products against the competition
+- **Pay per result** — Only charged for successfully scraped products
+- **E-commerce ready** — Structured output for FBA research, dropshipping, and retail arbitrage
 
-## How It Works
+## Features
 
-1. Pass one or more Amazon ASINs and a country code.
-2. The Actor scrapes each product page in real time.
-3. Structured data (25+ fields) is pushed to the Apify dataset.
-4. Download results as JSON, CSV, Excel, or access via API.
+- Search products by keyword on Amazon
+- Extract 20+ data fields per product
+- Get current price, original price, and discount percentage
+- Capture ratings, review counts, and Best Seller Rank
+- Prime eligibility and shipping information
+- Seller name and marketplace data
+- Product images (main + thumbnails)
+- ASIN for direct product identification
+- Sort by relevance, price, reviews, or newest
+- Configurable result limits
+- Proxy support for reliable scraping
 
-### Input Example
+## Input Parameters
 
-```
-{
-    "asins": ["B0CHWRXH8B", "B09V3KXJPB", "B07FZ8S74R"],
-    "country": "US"
-}
-```
+| Field | Type | Default | Description |
+| --- | --- | --- | --- |
+| `searchTerm` | string | *required* | Product search keyword (e.g., "wireless headphones", "running shoes") |
+| `maxResults` | number | `20` | Maximum products to return (1-500) |
+| `sortBy` | string | `"relevance"` | Sort order: `relevance`, `price-asc`, `price-desc`, `avg-review`, `newest` |
 
-You can also pass ASINs as a comma-separated string:
-
-```
-{
-    "asins": "B0CHWRXH8B, B09V3KXJPB, B07FZ8S74R",
-    "country": "DE"
-}
-```
-
-## Supported Marketplaces
-
-| Country | Domain | Code |
-| --- | --- | --- |
-| United States | amazon.com | US |
-| United Kingdom | amazon.co.uk | UK |
-| Germany | amazon.de | DE |
-| France | amazon.fr | FR |
-| Italy | amazon.it | IT |
-| Spain | amazon.es | ES |
-| Japan | amazon.co.jp | JP |
-| Canada | amazon.ca | CA |
-| Brazil | amazon.com.br | BR |
-| Mexico | amazon.com.mx | MX |
-
-## Output Schema
-
-Every product result includes 25+ structured fields:
+## Output Example
 
 ```
 {
-    "asin": "B0CHWRXH8B",
-    "title": "Apple AirPods Pro 2 Wireless Earbuds, USB-C Charging",
-    "brand": "Apple",
-    "price": 189.99,
-    "currency": "USD",
-    "original_price": 249.99,
-    "rating": 4.7,
-    "reviews_count": 67432,
-    "availability": "In Stock",
-    "seller_name": "Amazon.com",
-    "seller_id": "ATVPDKIKX0DER",
-    "is_prime": true,
-    "is_buybox_winner": true,
-    "is_amazon_choice": true,
-    "is_best_seller": false,
-    "bestseller_rank": 1,
-    "bestseller_category": "Electronics",
-    "main_image": "https://m.media-amazon.com/images/I/61SUj2aKoEL._AC_SL1500_.jpg",
-    "images": ["..."],
-    "features": ["INTELLIGENT NOISE CANCELLATION -- ...", "..."],
-    "description": "AirPods Pro 2 feature up to 2x more Active Noise Cancellation...",
-    "categories": ["Electronics", "Headphones", "Earbud Headphones"],
-    "parent_asin": "B0BDHWDR12",
-    "country": "US",
-    "url": "https://www.amazon.com/dp/B0CHWRXH8B",
-    "scraped_at": "2026-04-12T14:32:07Z"
+  "title": "Sony WH-1000XM5 Wireless Noise Canceling Headphones",
+  "price": "$348.00",
+  "originalPrice": "$399.99",
+  "discount": "13% off",
+  "rating": 4.7,
+  "reviewCount": 12543,
+  "asin": "B0BX2L8PBS",
+  "image": "https://m.media-amazon.com/images/I/51aYEHXCYlL._AC_SL1500_.jpg",
+  "isPrime": true,
+  "isBestSeller": false,
+  "seller": "Amazon.com",
+  "url": "https://amazon.com/dp/B0BX2L8PBS",
+  "category": "Electronics > Headphones",
+  "availability": "In Stock",
+  "scrapedAt": "2026-03-02T10:30:00Z"
 }
-```
-
-### Field Reference
-
-| Field | Type | Description |
-| --- | --- | --- |
-| asin | string | Amazon Standard Identification Number |
-| title | string | Full product title |
-| brand | string | Brand name |
-| price | number | Current selling price |
-| currency | string | Currency code (USD, GBP, EUR, etc.) |
-| original_price | number | List price before discount (null if none) |
-| rating | number | Average star rating (1.0-5.0) |
-| reviews_count | integer | Total number of customer reviews |
-| availability | string | Stock status text |
-| seller_name | string | Seller/merchant name |
-| seller_id | string | Amazon seller ID |
-| is_prime | boolean | Prime delivery eligible |
-| is_buybox_winner | boolean | Whether this offer holds the buybox |
-| is_amazon_choice | boolean | Amazon's Choice badge |
-| is_best_seller | boolean | Best Seller badge |
-| bestseller_rank | integer | Best Sellers Rank (BSR) |
-| bestseller_category | string | BSR category |
-| main_image | string | Primary product image URL |
-| images | array | All product image URLs |
-| features | array | Bullet point feature list |
-| description | string | Product description text |
-| categories | array | Category breadcrumb path |
-| parent_asin | string | Parent ASIN for variations |
-| country | string | Marketplace country code |
-| url | string | Full product page URL |
-| scraped_at | string | ISO 8601 timestamp of the scrape |
-
-## Integration Examples
-
-### Python (Apify Client)
-
-```
-from apify_client import ApifyClient
-
-client = ApifyClient("YOUR_API_TOKEN")
-
-run = client.actor("muffin/amazon-product-scraper").call(
-    run_input={
-        "asins": ["B0CHWRXH8B", "B09V3KXJPB"],
-        "country": "US",
-    }
-)
-
-for item in client.dataset(run["defaultDatasetId"]).iterate_items():
-    print(f"{item['asin']}: {item['title']} -- ${item['price']}")
-```
-
-### JavaScript (Apify Client)
-
-```
-import { ApifyClient } from "apify-client";
-
-const client = new ApifyClient({ token: "YOUR_API_TOKEN" });
-
-const run = await client.actor("muffin/amazon-product-scraper").call({
-    asins: ["B0CHWRXH8B", "B09V3KXJPB"],
-    country: "US",
-});
-
-const { items } = await client.dataset(run.defaultDatasetId).listItems();
-items.forEach((item) => console.log(`${item.asin}: $${item.price}`));
-```
-
-### Apify API (cURL)
-
-```
-# Start a run
-curl -X POST "https://api.apify.com/v2/acts/muffin~amazon-product-scraper/runs?token=YOUR_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"asins": ["B0CHWRXH8B"], "country": "US"}'
-
-# Get results from dataset
-curl "https://api.apify.com/v2/datasets/DATASET_ID/items?token=YOUR_TOKEN"
 ```
 
 ## Use Cases
 
-**Price Monitoring** -- Track competitor prices across multiple marketplaces on a schedule. Feed data into your pricing engine.
+### Price Monitoring & Alerts
 
-**FBA Product Research** -- Evaluate products by BSR, price, reviews, and competition data at scale.
+Track prices for products you sell or plan to buy. Schedule daily runs and detect price drops, deals, and competitor price changes.
 
-**MAP Compliance** -- Verify resellers adhere to Minimum Advertised Price policies across all Amazon marketplaces.
-
-**Competitor Tracking** -- Monitor changes in pricing, images, bullet points, seller info across your competitive landscape.
-
-**Brand Protection** -- Detect unauthorized sellers or counterfeit listings by scanning your branded ASINs.
-
-## Comparison with Alternatives
-
-| Feature | This Actor | Jungle Scout Scraper | Other Scrapers |
-| --- | --- | --- | --- |
-| Marketplaces | **10** | 1-2 | 1-3 |
-| Fields per result | **25+** | 10-15 | 8-12 |
-| BSR data | Yes | Yes | Sometimes |
-| Buybox & seller ID | Yes | No | Partial |
-| Amazon Choice / Best Seller | Yes | No | No |
-| Anti-bot technology | **Browser-grade** | Basic proxy | Basic proxy |
-| Success rate | **99%+** | ~90% | ~85% |
-
-## AI Agent Integration (MCP)
-
-This Actor works with the [Apify MCP server](https://docs.apify.com/platform/integrations/mcp), enabling AI agents to scrape Amazon product data programmatically.
-
-**What AI agents can do with this Actor:**
-
-- Look up any Amazon product by ASIN to get current price, availability, and reviews
-- Compare prices across different Amazon marketplaces (US, UK, DE, etc.)
-- Monitor product pricing and stock status
-- Extract product features and descriptions for analysis
-- Check seller information and buybox status
-
-**MCP configuration:**
+**Example:** Monitor laptop prices:
 
 ```
 {
-    "mcpServers": {
-        "apify": {
-            "url": "https://mcp.apify.com",
-            "headers": {
-                "Authorization": "Bearer YOUR_APIFY_TOKEN"
-            }
-        }
-    }
+  "searchTerm": "gaming laptop",
+  "maxResults": 100,
+  "sortBy": "price-asc"
 }
 ```
 
-Then ask your AI agent: *"Look up Amazon product B0CHWRXH8B and tell me its price and rating"*
+### Amazon FBA Product Research
+
+Find winning products for your FBA business. Analyze demand (review counts), competition (number of sellers), and pricing in any category.
+
+**Example:** Research trending products:
+
+```
+{
+  "searchTerm": "phone accessories",
+  "maxResults": 200,
+  "sortBy": "avg-review"
+}
+```
+
+### Competitor Analysis
+
+Track competitor products, their pricing strategy, and customer reception. Compare ratings and review counts across similar products.
+
+### Dropshipping Research
+
+Find products with high demand and good margins. Filter by price range, reviews, and Prime eligibility to identify opportunities.
+
+### Market Intelligence
+
+Build product databases for analytics. Track category trends, seasonal pricing patterns, and product lifecycle data.
+
+### Retail Arbitrage
+
+Compare Amazon prices with other marketplaces to find arbitrage opportunities for reselling.
+
+## Integration Examples
+
+### Python
+
+```
+from apify_client import ApifyClient
+
+client = ApifyClient('YOUR_API_TOKEN')
+run = client.actor('sovereigntaylor/amazon-product-scraper').call(run_input={
+    'searchTerm': 'wireless earbuds',
+    'maxResults': 50,
+    'sortBy': 'avg-review'
+})
+
+for item in client.dataset(run['defaultDatasetId']).iterate_items():
+    print(f"{item['title']}: {item['price']} ({item['rating']} stars)")
+```
+
+### JavaScript
+
+```
+const { ApifyClient } = require('apify-client');
+const client = new ApifyClient({ token: 'YOUR_API_TOKEN' });
+
+const run = await client.actor('sovereigntaylor/amazon-product-scraper').call({
+    searchTerm: 'wireless earbuds',
+    maxResults: 50,
+    sortBy: 'avg-review'
+});
+
+const { items } = await client.dataset(run.defaultDatasetId).listItems();
+items.forEach(item => console.log(`${item.title}: ${item.price}`));
+```
+
+### Google Sheets
+
+Use Apify's Google Sheets integration to export results directly to a spreadsheet. Set up a scheduled run for automatic daily updates.
 
 ## FAQ
 
-**How fast are results?**
-Single ASINs return in 2-5 seconds. Batches of 50 ASINs complete in 10-30 seconds.
+**Which Amazon domains are supported?**
+Currently Amazon.com. International domains coming soon.
 
-**What if a product is not found?**
-An error item is pushed to the dataset with the ASIN and error message. You can filter these by checking the `error` field.
+**How often can I scrape?**
+As often as you need — daily, hourly, or on-demand. Use Apify's scheduler for automated recurring runs.
 
-**Can I scrape variations?**
-Yes. Each variation has its own ASIN. The `parent_asin` field links variants to the parent listing.
+**Is this legal?**
+This actor extracts publicly available data from Amazon. Please review Amazon's Terms of Service and your local regulations regarding web scraping.
 
-**Do I need my own proxies?**
-No. All proxy management and anti-bot handling is built in.
+**Can I track specific ASINs?**
+Yes, use specific product URLs or ASINs as search terms to monitor exact products.
 
-**Which fields are always present?**
-`asin`, `country`, `url`, and `scraped_at` are always present. Other fields depend on the listing -- an out-of-stock product may not have a price.
+**What about Amazon product detail pages?**
+This actor extracts data from search results. For deep product page data, check our [Amazon Reviews Scraper](https://apify.com/sovereigntaylor/amazon-reviews-scraper).
 
-**Can I use this commercially?**
-Yes. No restrictions on commercial use.
+## Pricing
 
-**Does this work with AI agents?**
-Yes. This Actor is fully compatible with the Apify MCP server. AI agents can discover it via `search-actors`, inspect its schema via `fetch-actor-details`, and call it via `call-actor`.
+Pay per result — you're only charged for each product successfully scraped. No subscriptions, no minimums. See the Pricing tab for details.
+
+## Related Actors
+
+- [Amazon Reviews Scraper](https://apify.com/sovereigntaylor/amazon-reviews-scraper) — Extract customer reviews for any Amazon product
+- [Amazon BSR Tracker](https://apify.com/sovereigntaylor/amazon-bsr-tracker) — Track Best Seller Rank over time
+- [Amazon Keyword Tracker](https://apify.com/sovereigntaylor/amazon-keyword-tracker) — Monitor keyword rankings on Amazon
+- [eBay Scraper](https://apify.com/sovereigntaylor/ebay-scraper) — Compare with eBay marketplace data
+- [Walmart Scraper](https://apify.com/sovereigntaylor/walmart-scraper) — Cross-marketplace price comparison
